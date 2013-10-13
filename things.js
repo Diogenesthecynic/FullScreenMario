@@ -1536,6 +1536,12 @@ function moveMario(me) {
   if(me.xvel > 0) me.xvel = max(0, me.xvel - decel);
   else me.xvel = min(0, me.xvel + decel);
   
+  //Start mario back up if stopped
+  if((mario && !mario.dead) && !window.paused && !window.nokeys && me.xvel==0 && me.keys.run==0) {
+    if(me.keys.leftKeyDown)me.keys.run=-1;
+    else if(me.keys.rightKeyDown)me.keys.run=1;
+  }
+  
   // Movement mods
   // Slowing down
   if(Math.abs(me.xvel) < .14) {
