@@ -1533,13 +1533,14 @@ function moveMario(me) {
     decel = .035;
   }
 
-  if(me.xvel > 0) me.xvel = max(0, me.xvel - decel);
-  else me.xvel = min(0, me.xvel + decel);
-  
-  //Start mario back up if stopped
-  if((mario && !mario.dead) && !window.paused && !window.nokeys && me.xvel==0 && me.keys.run==0) {
-    if(me.keys.leftKeyDown)me.keys.run=-1;
-    else if(me.keys.rightKeyDown)me.keys.run=1;
+  if(me.xvel > decel) me.xvel-=decel;
+  else if(me.xvel < -decel) me.xvel+=decel;
+  else if(me.xvel!=0) {
+	me.xvel = 0;
+	if(!window.nokeys && me.keys.run==0) {
+      if(me.keys.leftKeyDown)me.keys.run=-1;
+      else if(me.keys.rightKeyDown)me.keys.run=1;
+    }  
   }
   
   // Movement mods
@@ -1552,7 +1553,6 @@ function moveMario(me) {
       addClass(me, "still");
       clearClassCycle(me, "running");
     }
-    if(Math.abs(me.xvel) < .049) me.xvel = 0;
   }
   // Not moving slowly
   else if(!me.running) {
