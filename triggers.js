@@ -20,6 +20,7 @@ function keydown(event) {
   switch(event) {
     case 37: case 65: // left
       mario.keys.run = -1;
+      mario.keys.leftKeyDown = true; //independent of changes to mario.keys.run
     break;
     
     case 38: case 87: case 32: // up
@@ -38,6 +39,7 @@ function keydown(event) {
      
     case 39: case 68: // right
       mario.keys.run = 1;
+      mario.keys.rightKeyDown = true; //independent of changes to mario.keys.run
     break;
     
     case 40: case 83: // down
@@ -95,6 +97,7 @@ function keyup(event) {
   switch(event) {
     case 37: case 65: // left
       mario.keys.run = 0;
+      mario.keys.leftKeyDown = false;
     break;
     
     case 38: case 87: case 32: // up
@@ -104,6 +107,7 @@ function keyup(event) {
 
     case 39: case 68: // right
       mario.keys.run = 0;
+      mario.keys.rightKeyDown = false;
     break;
 
     case 40: case 83: // down

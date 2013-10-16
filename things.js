@@ -1533,8 +1533,15 @@ function moveMario(me) {
     decel = .035;
   }
 
-  if(me.xvel > 0) me.xvel = max(0, me.xvel - decel);
-  else me.xvel = min(0, me.xvel + decel);
+  if(me.xvel > decel) me.xvel-=decel;
+  else if(me.xvel < -decel) me.xvel+=decel;
+  else if(me.xvel!=0) {
+	me.xvel = 0;
+	if(!window.nokeys && me.keys.run==0) {
+      if(me.keys.leftKeyDown)me.keys.run=-1;
+      else if(me.keys.rightKeyDown)me.keys.run=1;
+    }  
+  }
   
   // Movement mods
   // Slowing down
@@ -1546,7 +1553,6 @@ function moveMario(me) {
       addClass(me, "still");
       clearClassCycle(me, "running");
     }
-    if(Math.abs(me.xvel) < .049) me.xvel = 0;
   }
   // Not moving slowly
   else if(!me.running) {
