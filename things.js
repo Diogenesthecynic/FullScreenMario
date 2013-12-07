@@ -1022,12 +1022,13 @@ function CheepCheep(me, red, jumping) {
   TimeHandler.addSpriteCycle(me, ["one", "two"]);
 }
 function setCheepVelocities(me) {
+  var randomDirection = Math.random() < 0.5 ? -1 : 1;
   if(me.red) {
     me.xvel = -unitsized4;
-    me.yvel = unitsize / -24;
+    me.yvel = randomDirection * (unitsize / 10);
   } else {
     me.xvel = unitsize / -6;
-    me.yvel = -unitsized32;
+    me.yvel = randomDirection * (unitsize / 10);
   }
 }
 function moveCheepInit(me) {
@@ -1037,6 +1038,7 @@ function moveCheepInit(me) {
   me.movement = moveCheep;
 }
 function moveCheep(me) {
+  setCheepVelocities(me);
   shiftVert(me, me.yvel);
 }
 function moveCheepJumping(me) {
